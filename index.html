@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solange 70's - 70 anos no Ritmo da Vida</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Righteous&family=Pacifico&family=Fredoka:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --disco-orange: #ff8c00;
+            --disco-pink: #ff1493;
+            --disco-purple: #8a2be2;
+            --disco-yellow: #ffd700;
+            --disco-cyan: #00ffff;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Fredoka', sans-serif;
+            background: #1a1a1a;
+            color: white;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Animated Background */
+        .bg-gradient-animate {
+            background: linear-gradient(-45deg, #ff8c00, #ff1493, #8a2be2, #ffd700);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .retro-title {
+            font-family: 'Righteous', cursive;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 4px 4px 0px var(--disco-purple), 8px 8px 0px rgba(0,0,0,0.2);
+        }
+
+        .cursive-font {
+            font-family: 'Pacifico', cursive;
+        }
+
+        /* Disco Ball Animation */
+        .disco-ball {
+            filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.8));
+            animation: rotateBall 10s linear infinite;
+        }
+
+        @keyframes rotateBall {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Shaded Hero Video/Image */
+        .hero-bg-video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            max-width: 600px;
+            opacity: 0.18;
+            filter: contrast(1.2) brightness(1.2);
+            pointer-events: none;
+            z-index: 1;
+            mask-image: radial-gradient(circle, black 40%, transparent 80%);
+            -webkit-mask-image: radial-gradient(circle, black 40%, transparent 80%);
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        /* Twinkling Stars */
+        .stars {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            opacity: 0;
+            animation: twinkle 3s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0; transform: scale(0.5); }
+            50% { opacity: 0.8; transform: scale(1.2); }
+        }
+
+        /* Polaroid Effect */
+        .polaroid {
+            background: white;
+            padding: 10px 10px 30px 10px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            transform: rotate(-2deg);
+            transition: all 0.3s ease;
+        }
+
+        .polaroid:hover {
+            transform: rotate(0deg) scale(1.05);
+            z-index: 10;
+        }
+
+        .polaroid img {
+            width: 100%;
+            height: auto;
+            display: block;
+            border: 1px solid #eee;
+        }
+
+        /* High Contrast Neon Button */
+        .btn-confirm {
+            background: #000;
+            border: 4px solid var(--disco-cyan);
+            color: var(--disco-cyan);
+            font-weight: bold;
+            text-transform: uppercase;
+            padding: 1.2rem 2.5rem;
+            border-radius: 50px;
+            box-shadow: 0 0 15px var(--disco-cyan), inset 0 0 5px var(--disco-cyan);
+            transition: 0.3s;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+            font-family: 'Righteous', cursive;
+            letter-spacing: 1px;
+        }
+
+        .btn-confirm:hover {
+            background: var(--disco-cyan);
+            color: #000;
+            box-shadow: 0 0 50px var(--disco-cyan);
+            transform: scale(1.1);
+        }
+
+        /* Floor Lights effect */
+        .dance-floor {
+            display: grid;
+            grid-template-columns: repeat(10, 1fr);
+            gap: 2px;
+            opacity: 0.15;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 200px;
+            pointer-events: none;
+        }
+
+        .floor-tile {
+            aspect-ratio: 1;
+            animation: colorChange 2s infinite alternate;
+        }
+
+        @keyframes colorChange {
+            0% { background: var(--disco-pink); }
+            33% { background: var(--disco-yellow); }
+            66% { background: var(--disco-purple); }
+            100% { background: var(--disco-orange); }
+        }
+
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+
+        @keyframes floating {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Section Reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Audio Control */
+        #music-control {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 100;
+            background: rgba(0,0,0,0.6);
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid white;
+        }
+
+        .playing-icon {
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        /* Confetti */
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            z-index: 9999;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body class="bg-gradient-animate">
+
+    <div class="stars" id="star-container"></div>
+
+    <!-- Audio Player -->
+    <audio id="disco-music" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    </audio>
+
+    <div id="music-control" onclick="toggleMusic()">
+        <svg id="music-icon" class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3"></path>
+        </svg>
+    </div>
+
+    <!-- Hero Section -->
+    <header class="relative min-h-screen flex flex-col items-center justify-center text-center p-6 pt-20 overflow-hidden">
+        
+        <!-- Animated Background Video behind text -->
+        <video class="hero-bg-video" autoplay muted loop playsinline>
+            <source src="videos/hero-background.mp4" type="video/mp4">
+            <!-- Fallback: se o vídeo não carregar, mostra a imagem estática -->
+            <img src="images/file_00000000c86c720ea5bff018e0ab0064.png" alt="Solange Background" style="width:100%;height:100%;object-fit:cover;">
+        </video>
+
+        <div class="absolute top-10 left-1/2 -translate-x-1/2 w-32 h-32 disco-ball md:w-48 md:h-48 z-10">
+            <svg viewBox="0 0 100 100" class="w-full h-full">
+                <circle cx="50" cy="50" r="45" fill="silver" />
+                <path d="M50 5 L50 95 M5 50 L95 50 M15 15 L85 85 M15 85 L85 15" stroke="white" stroke-width="0.5" />
+                <circle cx="30" cy="30" r="2" fill="white" opacity="0.8">
+                    <animate attributeName="opacity" values="0.8;0;0.8" dur="1s" repeatCount="indefinite" />
+                </circle>
+            </svg>
+        </div>
+
+        <div class="z-20 max-w-4xl mt-10">
+            <h1 class="retro-title text-6xl md:text-9xl mb-4 leading-tight">Solange 70’s</h1>
+            <p class="cursive-font text-3xl md:text-5xl text-yellow-300 mb-8">70 anos no Ritmo da Vida</p>
+            
+            <div class="bg-black/40 backdrop-blur-md p-6 md:p-10 rounded-3xl border-2 border-white/20 shadow-2xl floating">
+                <h2 class="text-2xl md:text-4xl font-bold text-white mb-6 italic">
+                    "O tempo passa, mas o brilho continua!"
+                </h2>
+                <p class="text-lg md:text-2xl leading-relaxed opacity-95">
+                    Solange convida você para voltar aos anos 70 e celebrar suas 7 décadas de muita história, música e alegria.<br><br>
+                    Coloque seu melhor sorriso e venha celebrar comigo!
+                </p>
+            </div>
+        </div>
+
+        <div class="mt-12 animate-bounce z-20">
+            <a href="#info" class="text-white opacity-80">
+                <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+                </svg>
+            </a>
+        </div>
+        
+        <div class="dance-floor" id="floor"></div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-6xl mx-auto px-6 py-20 space-y-32">
+        
+        <!-- Intro Text Section -->
+        <section class="reveal text-center space-y-6">
+            <div class="inline-block bg-white/10 p-4 rounded-full mb-4">
+                <span class="text-5xl">🕺</span>
+            </div>
+            <h3 class="cursive-font text-4xl md:text-6xl text-yellow-300">"Porque a vida é uma pista de dança!"</h3>
+            <p class="text-xl md:text-3xl font-light">
+                Prepare o look retrô e venha brilhar!<br>
+                Nossa estrela Solange vai completar 70 anos e merece uma festa no melhor estilo anos 70!
+            </p>
+            <p class="text-lg md:text-xl text-pink-300 font-semibold uppercase tracking-widest bg-black/20 py-2 rounded-full px-6 inline-block">
+                Muito brilho, música boa e alegria para celebrar essa mulher incrível!
+            </p>
+        </section>
+
+        <!-- Gallery / Caricatures -->
+        <section class="reveal">
+            <h2 class="retro-title text-4xl text-center mb-16">Nossa Estrela</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+                <!-- Image 1 (Now in gallery too) -->
+                <div class="polaroid mx-auto" style="transform: rotate(-3deg);">
+                    <img src="images/file_00000000c86c720ea5bff018e0ab0064.png" alt="Solange Paz e Amor">
+                    <p class="text-black text-center mt-4 cursive-font text-2xl">Paz e Amor! ✌️</p>
+                </div>
+                <!-- Image 2 (Boogie) -->
+                <div class="polaroid mx-auto" style="transform: rotate(2deg);">
+                    <img src="images/file_00000000c560720ebe1f6a218d8856a8.png" alt="Solange Boogie">
+                    <p class="text-black text-center mt-4 cursive-font text-2xl">Let's Boogie! 💃</p>
+                </div>
+                <!-- Image 3 (Disco Queen) -->
+                <div class="polaroid mx-auto" style="transform: rotate(-1deg);">
+                    <img src="images/file_0000000092b8720e8ab06017980f6a5a.png" alt="Solange Disco Queen">
+                    <p class="text-black text-center mt-4 cursive-font text-2xl">Disco Queen 🪩</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Event Details -->
+        <section id="info" class="reveal bg-black/40 backdrop-blur-lg rounded-3xl p-8 md:p-16 border-4 border-yellow-400/30 relative overflow-hidden shadow-2xl">
+            <div class="absolute -top-10 -right-10 opacity-10 transform rotate-12">
+                <svg width="300" height="300" viewBox="0 0 100 100" class="text-white fill-current">
+                    <circle cx="50" cy="50" r="40" stroke="white" stroke-width="1" />
+                    <circle cx="50" cy="50" r="5" />
+                </svg>
+            </div>
+
+            <h2 class="retro-title text-4xl md:text-5xl mb-16 text-center text-yellow-300">Informações da Festa</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
+                <div class="space-y-4">
+                    <div class="text-6xl mb-4">📅</div>
+                    <h4 class="text-2xl font-bold uppercase text-disco-orange">Data</h4>
+                    <p class="text-2xl">09/05/2025<br><span class="opacity-70">Sábado</span></p>
+                </div>
+                
+                <div class="space-y-4">
+                    <div class="text-6xl mb-4">📍</div>
+                    <h4 class="text-2xl font-bold uppercase text-disco-orange">Local</h4>
+                    <p class="text-2xl">Cond Jardim Lermitage</p>
+                    <p class="text-lg opacity-80 px-4">R. João Batista Tostes, Remonta, Juiz de Fora - MG</p>
+                    <a href="https://maps.app.goo.gl/NgPSgajM9fu2Vu4T7" target="_blank" class="inline-block mt-4 bg-white/20 hover:bg-white/40 px-6 py-2 rounded-full transition font-bold text-white">Ver no Google Maps →</a>
+                </div>
+
+                <div class="space-y-4">
+                    <div class="text-6xl mb-4">🕺</div>
+                    <h4 class="text-2xl font-bold uppercase text-disco-orange">Dress Code</h4>
+                    <p class="text-2xl">Anos 70<br><span class="text-sm opacity-70 italic">Prepare o seu melhor look!</span></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dress Code Guide -->
+        <section class="reveal space-y-12">
+            <h2 class="retro-title text-4xl text-center">Dicas de Vestuário</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                <div class="bg-gradient-to-br from-pink-600 to-purple-800 p-10 rounded-3xl shadow-2xl border-2 border-white/10">
+                    <h3 class="cursive-font text-4xl mb-8 flex items-center gap-4">
+                        <span>👗</span> Feminino
+                    </h3>
+                    <ul class="space-y-4 text-xl">
+                        <li class="flex items-center gap-4"><span class="bg-white/20 p-2 rounded-lg">✨</span> Vestido colorido ou estampado</li>
+                        <li class="flex items-center gap-4"><span class="bg-white/20 p-2 rounded-lg">👖</span> Calça boca de sino</li>
+                        <li class="flex items-center gap-4"><span class="bg-white/20 p-2 rounded-lg">👠</span> Plataforma</li>
+                        <li class="flex items-center gap-4"><span class="bg-white/20 p-2 rounded-lg">🕶️</span> Óculos grandes</li>
+                        <li class="flex items-center gap-4"><span class="bg-white/20 p-2 rounded-lg">💍</span> Brincos chamativos</li>
+                        <li class="flex items-center gap-4"><span class="bg-white/20 p-2 rounded-lg">🧣</span> Lenço na cabeça</li>
+                    </ul>
+                </div>
+                <div class="bg-gradient-to-br from-orange-600 to-yellow-700 p-10 rounded-3xl shadow-2xl border-2 border-white/10">
+                    <h3 class="cursive-font text-4xl mb-8 flex items-center gap-4">
+                        <span>👔</span> Masculino
+                    </h3>
+                    <ul class="space-y-4 text-xl">
+                        <li class="flex items-center gap-4"><span class="bg-white/20 p-2 rounded-lg">👕</span> Camisa estampada aberta</li>
+                        <li class="flex items-center gap-4"><span class="bg-white/20 p-2 rounded-lg">👖</span> Calça boca de sino</li>
+                        <li class="flex items-center gap-4"><span class="bg-white/20 p-2 rounded-lg">👞</span> Sapato plataforma</li>
+                        <li class="flex items-center gap-4"><span class="bg-white/20 p-2 rounded-lg">🕶️</span> Óculos estilo John Travolta</li>
+                        <li class="flex items-center gap-4"><span class="bg-white/20 p-2 rounded-lg">📿</span> Colares estilosos</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Confirmation Section -->
+        <section class="reveal text-center py-20 bg-black/20 rounded-3xl border-2 border-dashed border-white/20" id="confirmacao">
+            <h3 class="retro-title text-3xl mb-12">Posso contar com você?</h3>
+            <button onclick="confirmPresence()" class="btn-confirm text-2xl md:text-4xl">
+                Confirmar Presença
+            </button>
+            <p class="mt-10 opacity-80 italic text-xl">Clique no botão acima para confirmar via WhatsApp!</p>
+        </section>
+
+    </main>
+
+    <footer class="py-16 text-center opacity-60 text-lg bg-black/30">
+        <p class="retro-title text-xl mb-2">Solange 70's</p>
+        <p>Comemorando a vida com alegria!</p>
+        <p class="text-sm mt-4 italic">Juiz de Fora, MG - 2025</p>
+    </footer>
+
+    <script>
+        // Star background generation
+        const starContainer = document.getElementById('star-container');
+        for (let i = 0; i < 60; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.left = `${Math.random() * 100}%`;
+            star.style.top = `${Math.random() * 100}%`;
+            star.style.width = `${Math.random() * 4 + 1}px`;
+            star.style.height = star.style.width;
+            star.style.animationDelay = `${Math.random() * 5}s`;
+            starContainer.appendChild(star);
+        }
+
+        // Dance floor generation
+        const floor = document.getElementById('floor');
+        for (let i = 0; i < 100; i++) {
+            const tile = document.createElement('div');
+            tile.className = 'floor-tile';
+            tile.style.animationDelay = `${Math.random() * 2}s`;
+            floor.appendChild(tile);
+        }
+
+        // Scroll reveal logic
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 100;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+
+        window.addEventListener("scroll", reveal);
+        window.onload = function() {
+            reveal();
+            document.body.addEventListener('click', function() {
+                const audio = document.getElementById('disco-music');
+                if (audio.paused && !audio.hasAttribute('user-stopped')) {
+                    audio.play();
+                    updateMusicUI(true);
+                }
+            }, { once: true });
+        };
+
+        function toggleMusic() {
+            const audio = document.getElementById('disco-music');
+            if (audio.paused) {
+                audio.play();
+                audio.removeAttribute('user-stopped');
+                updateMusicUI(true);
+            } else {
+                audio.pause();
+                audio.setAttribute('user-stopped', 'true');
+                updateMusicUI(false);
+            }
+        }
+
+        function updateMusicUI(isPlaying) {
+            const icon = document.getElementById('music-icon');
+            if (isPlaying) {
+                icon.classList.add('playing-icon');
+                icon.style.color = '#00ffff';
+            } else {
+                icon.classList.remove('playing-icon');
+                icon.style.color = 'white';
+            }
+        }
+
+        function confirmPresence() {
+            createConfetti();
+            setTimeout(() => {
+                window.location.href = "https://wa.me/5532988562122?text=Confirmo%20minha%20presen%C3%A7a%20na%20festa%20Solange%2070%27s!";
+            }, 1200);
+        }
+
+        function createConfetti() {
+            const colors = ['#00ffff', '#ff1493', '#ffd700', '#ff8c00', '#ffffff'];
+            for (let i = 0; i < 150; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.top = '-10px';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+                document.body.appendChild(confetti);
+
+                const animation = confetti.animate([
+                    { transform: `translate3d(0, 0, 0) rotate(0deg)`, opacity: 1 },
+                    { transform: `translate3d(${(Math.random() - 0.5) * 400}px, 100vh, 0) rotate(${Math.random() * 720}deg)`, opacity: 0 }
+                ], {
+                    duration: Math.random() * 3000 + 2000,
+                    easing: 'cubic-bezier(0, .9, .57, 1)',
+                    fill: 'forwards'
+                });
+
+                animation.onfinish = () => confetti.remove();
+            }
+        }
+    </script>
+</body>
+</html>
